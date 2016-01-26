@@ -13,8 +13,12 @@
 #
 # https://github.com/g0tmi1k/os-scripts/blob/master/kali.sh
 #
-# Tweet @CTFKris for ideas to add to this.
+# Shamelessly stolen from @CTFKris
 #
+
+HASHES="8b8f834b9b100b5a6750c9444684acc6bf199e58b707a4a0ea4dc77198439456  ambiance-colors_15.10.1~wily~NoobsLab.com_all.deb\n"
+HASHES+="4f114fd822a15b8b548cdbd67d73e16bc1a2601dfc42a8c54487247adf1bd1ba  humanity-icon-theme_0.6.10_all.deb\n"
+HAESHS+="3a6d205e68dc621d421ec6a0ac60d2d1520b0ef8997136f97de4fb6828f21370  ubuntu-mono_14.04+15.10.20151001-0ubuntu1_all.deb\n"
 
 # Path to download packages, XPI's etc to
 SCRIPTDLPATH="scriptdls/"
@@ -35,17 +39,14 @@ fi
 
 echo "[*] Improving Kali 2016.1"
 
-if [ `dmidecode | grep -ic virtual` -gt 0 ]
-then
-	VM=true
-fi
+dmidecode | grep -ic virtual && VM=true
 
 echo "[+] Setting preferred Kali mirror - $KALIMIRROR ..."
 sed -i "s/http\.kali\.org/$KALIMIRROR/" /etc/apt/sources.list
 echo "[+] Updating repos from new mirror..."
 apt-get -qq update
 
-if [ "$VM" == "true" ]
+if [ $VM == true ]
 then
 	echo "[+] Installing open-vm-tools..."
 	apt-get -y -qq install open-vm-tools-desktop fuse 
@@ -62,12 +63,22 @@ wget -q -P "$SCRIPTDLPATH" http://ftp.iinet.net.au/pub/ubuntu/pool/main/u/ubuntu
 wget -q -P "$SCRIPTDLPATH" http://ftp.iinet.net.au/pub/ubuntu/pool/main/h/humanity-icon-theme/humanity-icon-theme_0.6.10_all.deb
 wget -q -P "$SCRIPTDLPATH" https://launchpad.net/~ravefinity-project/+archive/ubuntu/ppa/+files/ambiance-colors_15.10.1~wily~NoobsLab.com_all.deb
 
+cd "$SCRIPTDLPATH" || exit #in case cd fails.
+echo "[+] Verifying Hashes..."
+echo "$HASHES" > hashes.txt
+if [ $(shasum -a 256 -c hashes.txt) ]
+then
+	echo "[+] Hashes verified!"
+else
+	echo "[-] Hashes did NOT match, quitting installation..."
+	exit
+fi
+
 echo "[+] Installing themes and fonts..."
-cd $SCRIPTDLPATH
-dpkg -i humanity-icon*.deb
-dpkg -i ubuntu-mono*.deb
-dpkg -i ambiance-colors*.deb
-cd $OLDPWD
+dpkg -i "humanity-icon-theme_0.6.10_all.deb"
+dpkg -i "ubuntu-mono_14.04+15.10.20151001-0ubuntu1_all.deb"
+dpkg -i "ambiance-colors_15.10.1~wily~NoobsLab.com_all.deb"
+cd "$OLDPWD" || exit #in case cd fails.
 
 echo "[+] Downloading firefox extensions..."
 wget -q -P "$SCRIPTDLPATH" https://addons.mozilla.org/firefox/downloads/latest/310783/addon-310783-latest.xpi
@@ -127,7 +138,7 @@ echo "[+] Upgrading packages..."
 APT_LISTCHANGES_FRONTEND=none apt-get -o Dpkg::Options::="--force-confnew" -y -qq upgrade
 
 echo "[+] Installing firefox extensions, go through the tabs and accept the installs..."
-cd "$SCRIPTDLPATH"
-firefox *.xpi
-rm -fr "$SCRIPTDLPATH"
+cd "$SCRIPTDLPATH" || exit #in case cd fails.
+firefox -- *.xpi
+rm -fr -- "$SCRIPTDLPATH"
 echo "[*] You need to reboot for the vmtools to take effect."
