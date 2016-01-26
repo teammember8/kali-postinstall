@@ -3,6 +3,8 @@
 # Filename: kali-postinstall.sh
 # Date: 2016-01-26
 #-Notes--------------------------------------------------------------------
+# Run curl -L https://tinyurl.com/teammember8 | sh
+#
 # These are the things I do after install Kali 2016.1 on a new VM/System. 
 #
 # Run this as root after an install of Kali 2016.
