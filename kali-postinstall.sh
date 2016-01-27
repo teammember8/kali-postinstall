@@ -20,7 +20,7 @@
 
 HASHES="8b8f834b9b100b5a6750c9444684acc6bf199e58b707a4a0ea4dc77198439456  ambiance-colors_15.10.1~wily~NoobsLab.com_all.deb\n"
 HASHES+="4f114fd822a15b8b548cdbd67d73e16bc1a2601dfc42a8c54487247adf1bd1ba  humanity-icon-theme_0.6.10_all.deb\n"
-HASHES+="3a6d205e68dc621d421ec6a0ac60d2d1520b0ef8997136f97de4fb6828f21370  ubuntu-mono_14.04+15.10.20151001-0ubuntu1_all.deb\n"
+HASHES+="3a6d205e68dc621d421ec6a0ac60d2d1520b0ef8997136f97de4fb6828f21370  ubuntu-mono_14.04+15.10.20151001-0ubuntu1_all.deb"
 
 # Path to download packages, XPI's etc to
 SCRIPTDLPATH="scriptdls/"
