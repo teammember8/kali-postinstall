@@ -144,3 +144,5 @@ cd "$SCRIPTDLPATH" || exit #in case cd fails.
 firefox -- *.xpi
 rm -fr -- "$SCRIPTDLPATH"
 echo "[*] You need to reboot for the vmtools to take effect."
+echo "[*] Rebooting"
+reboot
