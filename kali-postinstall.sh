@@ -67,7 +67,7 @@ wget -q -P "$SCRIPTDLPATH" https://launchpad.net/~ravefinity-project/+archive/ub
 
 cd "$SCRIPTDLPATH" || exit #in case cd fails.
 echo "[+] Verifying Hashes..."
-echo "$HASHES" > hashes.txt
+echo -e "$HASHES" > hashes.txt
 if [ $(shasum -a 256 -c hashes.txt) ]
 then
 	echo "[+] Hashes verified!"
