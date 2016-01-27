@@ -43,7 +43,7 @@ echo "[*] Improving Kali 2016.1"
 
 dmidecode | grep -ic virtual && VM=true
 
-echo "[+] Setting preferred Kali mirror - $KALIMIRROR ..."
+echo -e "[+] Setting preferred Kali mirror - $KALIMIRROR ..."
 sed -i "s/http\.kali\.org/$KALIMIRROR/" /etc/apt/sources.list
 echo "[+] Updating repos from new mirror..."
 apt-get -qq update
