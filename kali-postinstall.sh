@@ -142,6 +142,9 @@ APT_LISTCHANGES_FRONTEND=none apt-get -o Dpkg::Options::="--force-confnew" -y -q
 echo "[+] Installing firefox extensions, go through the tabs and accept the installs..."
 cd "$SCRIPTDLPATH" || exit #in case cd fails.
 firefox -- *.xpi
+#Stuff for @teammeber8
+gem install bropages #bropages
+
 rm -fr -- "$SCRIPTDLPATH"
 echo "[*] You need to reboot for the vmtools to take effect."
 echo "[*] Rebooting"
